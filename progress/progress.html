@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <style></style>
+  <body>
+    <h1>Suggested Bus Progress</h1>
+
+    <div id="myProgress">
+      <div id="bus0"></div>
+    </div>
+
+    <br />
+
+    <script>
+      var buses = [
+        {
+          busName: "0011",
+          stops: [
+            {
+              name: "Kanker Khera",
+              time: "10:00",
+              status: 1,
+            },
+            {
+              name: "Modipuram",
+              time: "11:00",
+              status: 1,
+            },
+
+            {
+              name: "BegumPul",
+              time: "12:00",
+              status: 0,
+            },
+            {
+              name: "Rohta Road",
+              time: "13:00",
+              status: 0,
+            },
+            {
+              name: "Station",
+              time: "14:00",
+              status: 0,
+            },
+          ],
+        },
+        //next bus
+        {
+          busName: "9900",
+          stops: [
+            {
+              name: "Kanker Khera",
+              time: "10:00",
+              status: 1,
+            },
+            {
+              name: "Modipuram",
+              time: "11:00",
+              status: 1,
+            },
+            {
+              name: "BegumPul",
+              time: "12:00",
+              status: 1,
+            },
+            {
+              name: "Rohta Road",
+              time: "13:00",
+              status: 1,
+            },
+            {
+              name: "Station",
+              time: "14:00",
+              status: 0,
+            },
+          ],
+        },
+      ];
+
+      var busCount = 0;
+
+      buses.map((bus) => {
+        busCount++;
+        var busDiv = document.createElement("div");
+
+        busDiv.setAttribute("id", "bus" + busCount);
+        busDiv.style.backgroundColor = "#ddd";
+
+        document.getElementById("bus" + (busCount - 1)).append(busDiv);
+
+        var childDiv = document.createElement("div");
+        childDiv.setAttribute("id", "bus" + busCount + "stop0");
+        childDiv.style.backgroundColor = "#ddd";
+
+        var bnlab = document.createElement("label");
+        bnlab.innerHTML = "<b> BUS NUMBER-  " + bus.busName + "</b>";
+
+        childDiv.append(document.createElement("br"));
+        childDiv.appendChild(bnlab);
+        childDiv.append(document.createElement("br"));
+
+        document.getElementById("bus" + busCount).appendChild(childDiv);
+
+        displayInfo();
+        function displayInfo() {
+          var count = 0;
+          var breaks = bus.stops.length;
+          var width = 1000 / breaks;
+
+          initStop();
+
+          function initStop() {
+            var outline = document.getElementById("myProgress");
+
+            bus.stops.map((stop) => {
+              count++;
+              var cont = document.createElement("div");
+
+              cont.style.display = "flex";
+              cont.style.flexDirection = "row";
+              var lab = document.createElement("label");
+              lab.setAttribute("id", "bus" + busCount + "stop" + count);
+              lab.innerHTML = "|    " + stop.name + "   " + stop.time;
+              lab.style.width = width + "px";
+              lab.style.paddingLeft = width / breaks + "px";
+
+              lab.style.border = "1px solid #000000";
+
+              var strip = document.createElement("div");
+              strip.style.height = 5 + "px";
+              strip.style.width = 50 + "px";
+
+              if (stop.status === 1) lab.style.backgroundColor = "#7DCEA0";
+              else lab.style.backgroundColor = "#ddd";
+
+              //lab.appendChild(strip);
+              cont.appendChild(lab);
+              document
+                .getElementById("bus" + busCount + "stop" + (count - 1))
+                .append(cont);
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
