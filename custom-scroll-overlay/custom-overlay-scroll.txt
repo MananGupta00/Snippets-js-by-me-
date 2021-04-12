@@ -1,0 +1,71 @@
+
+WOO HOO! page scrolls on hovering translucent blocks.
+
+
+/////////////////////////////////////////////////////////CSS/////////////////////////////////////////////////////////////
+::-webkit-scrollbar {
+  display: none;
+}
+.overlay {
+  position: fixed; 
+  display: block; 
+  width: 100%; 
+  height: 2vw;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2; 
+  cursor: pointer;
+}
+#overlay {
+  top: calc(100vh - 2vw);
+}
+#overlay2 {
+  top: 10vw;
+}
+////////////////////////////////////////HTML///////////////////////////////////////////////////////
+ <div
+      id="overlay"
+      class="overlay"
+      onmouseover="mouseOverlay()"
+      onmouseleave="mouseLeft()"
+    ></div>
+    <div
+      id="overlay2"
+      class="overlay"
+      onmouseover="mouseOverlay2()"
+      onmouseleave="mouseLeft2()"
+    ></div>
+////////////////////////////////////////JS/////////////////////////////////////////////////////////////////
+
+var over = document.getElementById("overlay");
+var foc = false;
+function focusOverlay() {
+  let y = window.pageYOffset;
+  window.scrollTo(0, y + 10);
+  if (foc) setTimeout(focusOverlay, 10);
+}
+function mouseOverlay() {
+  foc = true;
+  focusOverlay();
+}
+function mouseLeft() {
+  foc = false;
+}
+
+var over2 = document.getElementById("overlay2");
+var foc2 = false;
+function focusOverlay2() {
+  let y2 = window.pageYOffset;
+  window.scrollTo(0, y2 - 10);
+  if (foc2) setTimeout(focusOverlay2, 10);
+}
+function mouseOverlay2() {
+  foc2 = true;
+  focusOverlay2();
+}
+function mouseLeft2() {
+  foc2 = false;
+}
